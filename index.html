@@ -3,294 +3,368 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodeTigers – Code, AI & Physical Computing for Kids</title>
-  <meta name="description" content="CodeTigers teaches coding, AI and physical computing to K12 students.">
+  <title>CodeTigers – Making India Code &amp; AI Literate</title>
+  <meta name="description" content="CodeTigers is an initiative to teach code, AI and physical computing to young Indian learners in grades 1–12.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* CodeTigers brand colours (taken from the business card and intro sheet) */
     :root {
-      --orange: #FF7A1A;
-      --orange-dark: #E25E00;
-      --stripe: #1F1A17;
-      --cream: #FFF7EC;
-      --ink: #2B2420;
-      --muted: #6B5E55;
-      --blue: #2D7FF9;
-      --green: #1DB37A;
-      --purple: #8B5CF6;
-      --card: #FFFFFF;
+      --yellow: #FFCD4E;
+      --yellow-deep: #FBC34E;
+      --cream: #FFFCF4;
+      --white: #FFFFFF;
+      --ink: #2E2C2D;
+      --ink-soft: #555153;
+      --line: #363334;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: "Nunito", system-ui, sans-serif;
-      background: var(--cream);
+      font-family: "Open Sans", system-ui, sans-serif;
       color: var(--ink);
-      line-height: 1.6;
+      background: var(--cream);
+      line-height: 1.65;
     }
-    h1, h2, h3 { font-family: "Baloo 2", system-ui, sans-serif; line-height: 1.15; }
+    h1, h2, h3, .brand, .btn, .eyebrow { font-family: "Montserrat", system-ui, sans-serif; }
     a { color: inherit; }
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-    /* Tiger stripes bar */
-    .stripes {
-      height: 14px;
-      background: repeating-linear-gradient(115deg, var(--orange) 0 28px, var(--stripe) 28px 40px);
+    /* ---------- Top bar ---------- */
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--cream); border-bottom: 1px solid #EFE7D2;
     }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 1.35rem; }
+    .brand svg { width: 34px; height: auto; }
+    .topbar nav { display: flex; gap: 22px; }
+    .topbar nav a {
+      text-decoration: none; font-family: "Montserrat", system-ui, sans-serif; font-weight: 600; font-size: .9rem;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .topbar nav a:hover { color: #B8860B; }
 
-    /* Nav */
-    nav { padding: 18px 0; }
-    nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .logo { font-family: "Baloo 2"; font-weight: 800; font-size: 1.6rem; text-decoration: none; }
-    .logo span { color: var(--orange); }
-    .nav-link {
-      text-decoration: none; font-weight: 700; color: var(--orange-dark);
-      border: 2px solid var(--orange); border-radius: 999px; padding: 6px 16px;
+    /* ---------- Hero: yellow / cream split, like the business card ---------- */
+    .hero { display: grid; grid-template-columns: 1.4fr 1fr; min-height: 520px; }
+    .hero-left {
+      background: var(--yellow);
+      padding: 72px 56px; display: flex; flex-direction: column; justify-content: center;
     }
-    .nav-link:hover { background: var(--orange); color: #fff; }
-
-    /* Hero */
-    .hero { padding: 40px 0 64px; }
-    .hero .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-    .badge {
-      display: inline-block; background: #FFE3CC; color: var(--orange-dark);
-      font-weight: 700; padding: 4px 14px; border-radius: 999px; font-size: .9rem; margin-bottom: 16px;
+    .hero-left .inner { max-width: 560px; margin-left: auto; width: 100%; }
+    .hero h1 { font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 700; line-height: 1.05; margin-bottom: 18px; }
+    .hero .tagline {
+      font-family: "Montserrat", system-ui, sans-serif; font-weight: 400; font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.3; margin-bottom: 22px;
     }
-    .hero h1 { font-size: clamp(2.3rem, 6vw, 3.6rem); margin-bottom: 16px; }
-    .hero h1 .hl { color: var(--orange); }
-    .hero p { font-size: 1.15rem; color: var(--muted); margin-bottom: 28px; max-width: 32em; }
+    .hero .intro { font-size: 1.05rem; max-width: 30em; margin-bottom: 30px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 12px; }
     .btn {
-      display: inline-block; background: var(--orange); color: #fff; text-decoration: none;
-      font-weight: 700; padding: 14px 28px; border-radius: 14px; font-size: 1.05rem;
-      box-shadow: 0 5px 0 var(--orange-dark); transition: transform .1s, box-shadow .1s;
+      display: inline-block; text-decoration: none; font-weight: 700; font-size: .95rem;
+      letter-spacing: .05em; text-transform: uppercase;
+      padding: 14px 26px; border-radius: 8px; border: 2px solid var(--ink);
+      transition: transform .12s, box-shadow .12s;
     }
-    .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--orange-dark); }
+    .btn-dark { background: var(--ink); color: var(--white); }
+    .btn-light { background: transparent; color: var(--ink); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 0 var(--ink); }
 
-    /* Tiger mascot (made of CSS shapes) */
-    .tiger-stage { display: flex; justify-content: center; }
-    .tiger {
-      width: 260px; height: 240px; position: relative; cursor: pointer;
-      transition: transform .2s;
+    .hero-right {
+      background: var(--cream); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 48px 24px; position: relative;
     }
-    .tiger:hover { transform: rotate(-4deg) scale(1.03); }
-    .tiger.roar { animation: shake .5s; }
+    .tiger-btn {
+      background: none; border: none; cursor: pointer; position: relative;
+      width: min(260px, 70vw);
+    }
+    .tiger-btn svg { width: 100%; height: auto; display: block; transition: transform .2s; }
+    .tiger-btn:hover svg { transform: rotate(-3deg) scale(1.03); }
+    .tiger-btn.roar svg { animation: shake .5s; }
     @keyframes shake {
       0%,100% { transform: rotate(0); } 20% { transform: rotate(-8deg); }
-      40% { transform: rotate(8deg); } 60% { transform: rotate(-6deg); } 80% { transform: rotate(6deg); }
+      40% { transform: rotate(8deg); } 60% { transform: rotate(-5deg); } 80% { transform: rotate(5deg); }
     }
-    .ear { position: absolute; top: 0; width: 70px; height: 70px; background: var(--orange); border-radius: 50%; }
-    .ear::after { content: ""; position: absolute; inset: 16px; background: #FFD7B5; border-radius: 50%; }
-    .ear.l { left: 20px; } .ear.r { right: 20px; }
-    .face {
-      position: absolute; top: 26px; left: 10px; width: 240px; height: 210px;
-      background: var(--orange); border-radius: 50% 50% 46% 46%; overflow: hidden;
+    .bubble {
+      position: absolute; top: -18px; right: -30px;
+      background: var(--yellow); border: 3px solid var(--ink); border-radius: 14px;
+      font-family: "Montserrat", system-ui, sans-serif; font-weight: 800; font-size: 1.3rem; padding: 4px 14px;
+      opacity: 0; transform: scale(.5) rotate(-6deg); transition: all .18s; pointer-events: none;
     }
-    .stripe { position: absolute; background: var(--stripe); border-radius: 0 0 40px 40px; }
-    .s1 { left: 104px; top: 0; width: 32px; height: 46px; }
-    .s2 { left: 0; top: 70px; width: 46px; height: 16px; border-radius: 0 20px 20px 0; }
-    .s3 { left: 0; top: 100px; width: 36px; height: 14px; border-radius: 0 20px 20px 0; }
-    .s4 { right: 0; top: 70px; width: 46px; height: 16px; border-radius: 20px 0 0 20px; }
-    .s5 { right: 0; top: 100px; width: 36px; height: 14px; border-radius: 20px 0 0 20px; }
-    .eye { position: absolute; top: 72px; width: 34px; height: 40px; background: #fff; border-radius: 50%; }
-    .eye::after {
-      content: ""; position: absolute; width: 16px; height: 22px; background: var(--stripe);
-      border-radius: 50%; top: 10px; left: 9px;
+    .tiger-btn.roar .bubble { opacity: 1; transform: scale(1) rotate(-6deg); }
+    .hint { margin-top: 18px; font-size: .9rem; color: var(--ink-soft); text-align: center; }
+    .partners { margin-top: 30px; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+    .partner {
+      font-family: "Montserrat", system-ui, sans-serif; font-weight: 600; font-size: .85rem; letter-spacing: .03em;
+      border: 1.5px solid var(--ink); border-radius: 999px; padding: 4px 14px; background: var(--white);
     }
-    .eye.l { left: 62px; } .eye.r { right: 62px; }
-    .muzzle {
-      position: absolute; bottom: 14px; left: 50px; width: 140px; height: 86px;
-      background: #FFF1E3; border-radius: 50%;
-    }
-    .nose {
-      position: absolute; top: 12px; left: 52px; width: 36px; height: 24px;
-      background: var(--stripe); border-radius: 50% 50% 60% 60%;
-    }
-    .mouth {
-      position: absolute; top: 40px; left: 46px; width: 48px; height: 18px;
-      border-bottom: 5px solid var(--stripe); border-radius: 0 0 50% 50%;
-      transition: all .2s;
-    }
-    .tiger.roar .mouth {
-      height: 32px; top: 40px; background: #C2263B; border: none; border-radius: 10px 10px 50% 50%;
-    }
-    .roar-bubble {
-      position: absolute; top: -10px; right: -40px; background: #fff; border: 3px solid var(--stripe);
-      border-radius: 18px; padding: 6px 14px; font-family: "Baloo 2"; font-weight: 800; font-size: 1.3rem;
-      opacity: 0; transform: scale(.6); transition: all .2s; pointer-events: none;
-    }
-    .tiger.roar .roar-bubble { opacity: 1; transform: scale(1); }
-    .tap-hint { text-align: center; color: var(--muted); font-size: .9rem; margin-top: 10px; }
 
-    /* Sections */
-    section { padding: 64px 0; }
-    .section-title { text-align: center; margin-bottom: 12px; font-size: clamp(1.8rem, 4vw, 2.4rem); }
-    .section-sub { text-align: center; color: var(--muted); max-width: 36em; margin: 0 auto 40px; }
+    /* ---------- Sections ---------- */
+    section { padding: 80px 0; }
+    .title {
+      font-size: clamp(1.6rem, 3.5vw, 2.1rem); font-weight: 600; text-transform: uppercase;
+      letter-spacing: .02em; display: inline-block; border-bottom: 3px solid var(--ink);
+      padding-bottom: 2px; margin-bottom: 14px;
+    }
+    .lead { color: var(--ink-soft); max-width: 40em; margin-bottom: 40px; font-size: 1.05rem; }
+    .eyebrow {
+      font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: #9A7414; margin-bottom: 8px; display: block;
+    }
 
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    /* What we teach */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .card {
-      background: var(--card); border-radius: 22px; padding: 28px 24px;
-      border: 3px solid var(--stripe); box-shadow: 6px 6px 0 var(--stripe);
+      background: var(--white); border: 2px solid var(--ink); border-radius: 18px;
+      padding: 28px 24px; position: relative; overflow: hidden;
     }
-    .card .icon {
-      width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center;
-      font-size: 2rem; margin-bottom: 16px;
+    .card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 10px;
+      background: repeating-linear-gradient(90deg, var(--yellow) 0 26px, var(--ink) 26px 38px);
     }
-    .card h3 { font-size: 1.5rem; margin-bottom: 8px; }
-    .card p { color: var(--muted); margin-bottom: 14px; }
-    .card ul { list-style: none; }
-    .card li { padding-left: 26px; position: relative; margin-bottom: 6px; font-weight: 600; }
-    .card li::before { content: "🐾"; position: absolute; left: 0; font-size: .9rem; top: 2px; }
-    .c-code .icon { background: #E3EEFF; }
-    .c-ai .icon { background: #EFE7FF; }
-    .c-phys .icon { background: #DDF6EC; }
+    .card .num {
+      font-family: "Montserrat", system-ui, sans-serif; font-weight: 800; font-size: 2.6rem; color: var(--yellow-deep);
+      -webkit-text-stroke: 1.5px var(--ink); line-height: 1; margin: 10px 0 12px;
+    }
+    .card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .card p { color: var(--ink-soft); margin-bottom: 16px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-family: "Montserrat", system-ui, sans-serif; font-size: .8rem; font-weight: 600;
+      background: #FFF2CC; border-radius: 6px; padding: 3px 10px;
+    }
 
-    /* How we learn */
-    .how { background: var(--stripe); color: #fff; border-radius: 32px; }
-    .how .section-sub { color: #CFC5BD; }
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; counter-reset: step; }
-    .step {
-      background: #2E2722; border-radius: 18px; padding: 22px 18px; text-align: center;
+    /* Why coding — yellow split band */
+    .why { padding: 0; }
+    .why .split { display: grid; grid-template-columns: 1fr 1fr; }
+    .why .left { background: var(--white); padding: 72px 56px; }
+    .why .right { background: var(--yellow); padding: 72px 56px; display: flex; align-items: center; }
+    .why .left .inner { max-width: 480px; margin-left: auto; }
+    .skills { list-style: none; display: grid; gap: 12px; }
+    .skills li {
+      display: flex; align-items: center; gap: 12px; font-family: "Montserrat", system-ui, sans-serif;
+      font-weight: 600; font-size: 1.05rem;
     }
-    .step .num {
-      width: 44px; height: 44px; border-radius: 50%; background: var(--orange); color: #fff;
-      display: grid; place-items: center; font-family: "Baloo 2"; font-weight: 800;
-      font-size: 1.3rem; margin: 0 auto 12px;
+    .skills li::before {
+      content: ""; width: 14px; height: 14px; flex: none;
+      background: var(--yellow); border: 2px solid var(--ink); border-radius: 3px;
     }
-    .step h3 { font-size: 1.25rem; margin-bottom: 4px; }
-    .step p { color: #CFC5BD; font-size: .95rem; }
-
-    /* CTA */
-    .cta { text-align: center; }
-    .cta h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 12px; }
-    .cta p { color: var(--muted); margin-bottom: 26px; }
-
-    footer { padding: 28px 0 36px; text-align: center; color: var(--muted); font-size: .95rem; }
-
-    /* Phones */
-    @media (max-width: 820px) {
-      .hero .wrap { grid-template-columns: 1fr; text-align: center; }
-      .hero p { margin-left: auto; margin-right: auto; }
-      .cards { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .roar-bubble { right: -10px; }
+    .quote {
+      font-family: "Montserrat", system-ui, sans-serif; font-weight: 500; font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+      line-height: 1.35; max-width: 460px;
     }
-    @media (max-width: 420px) {
-      .steps { grid-template-columns: 1fr; }
-      .tiger { transform: scale(.85); }
+    .quote strong { font-weight: 800; }
+
+    /* Programmes */
+    .progs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .prog { border-left: 6px solid var(--yellow); background: var(--white); padding: 22px 22px; border-radius: 0 14px 14px 0; }
+    .prog h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .prog p { color: var(--ink-soft); font-size: .97rem; }
+
+    /* Reach out */
+    .reach { background: var(--ink); color: var(--white); text-align: center; }
+    .reach .title { border-color: var(--yellow); }
+    .reach p { color: #D9D4D5; margin: 0 auto 28px; max-width: 34em; }
+    .reach .btn-yellow { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
+    .reach .btn-yellow:hover { box-shadow: 0 4px 0 #B8900F; }
+    .reach .btn-outline { color: var(--white); border-color: var(--white); }
+    .reach .btn-outline:hover { box-shadow: 0 4px 0 var(--white); }
+    .reach .btns { justify-content: center; }
+
+    footer { background: var(--cream); padding: 28px 0; font-size: .9rem; color: var(--ink-soft); }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+    footer .social { display: flex; gap: 18px; }
+    footer a { text-decoration: none; font-weight: 600; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ---------- Phones & tablets ---------- */
+    @media (max-width: 860px) {
+      .topbar nav { display: none; }
+      .hero, .why .split { grid-template-columns: 1fr; }
+      .hero-left, .why .left, .why .right { padding: 56px 20px; }
+      .hero-left .inner, .why .left .inner { margin: 0 auto; }
+      .hero-right { padding: 48px 20px 56px; }
+      .cards, .progs { grid-template-columns: 1fr; }
+      section { padding: 60px 0; }
+      .bubble { right: -6px; }
     }
   </style>
 </head>
 <body>
-  <div class="stripes"></div>
 
-  <nav>
+  <!-- The CodeTigers tiger logo, drawn in SVG so it stays sharp at any size -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="tiger" viewBox="0 0 700 830">
+        <!-- head + ears -->
+        <path d="M75,35 H175 Q215,35 215,75 V120 H485 V75 Q485,35 525,35 H625 Q665,35 665,75 V175 Q665,215 625,215 H580 V520 H120 V215 H75 Q35,215 35,175 V75 Q35,35 75,35 Z"
+              fill="#FBC34E" stroke="#363334" stroke-width="18" stroke-linejoin="round"/>
+        <g fill="#363334">
+          <!-- ear stripes -->
+          <rect x="115" y="35" width="32" height="55"/><rect x="35" y="118" width="55" height="32"/>
+          <rect x="553" y="35" width="32" height="55"/><rect x="610" y="118" width="55" height="32"/>
+          <!-- forehead stripes -->
+          <rect x="250" y="120" width="34" height="60"/><rect x="333" y="120" width="34" height="60"/><rect x="416" y="120" width="34" height="60"/>
+          <!-- cheek stripes -->
+          <rect x="120" y="250" width="50" height="32"/><rect x="120" y="320" width="50" height="32"/><rect x="120" y="400" width="50" height="32"/>
+          <rect x="530" y="250" width="50" height="32"/><rect x="530" y="320" width="50" height="32"/><rect x="530" y="400" width="50" height="32"/>
+        </g>
+        <!-- eyes (shaped like the letter C) -->
+        <g class="eyes">
+          <rect x="205" y="232" width="128" height="158" rx="34" fill="#fff" stroke="#363334" stroke-width="16"/>
+          <rect x="367" y="232" width="128" height="158" rx="34" fill="#fff" stroke="#363334" stroke-width="16"/>
+          <rect x="240" y="264" width="62" height="96" rx="18" fill="#363334"/>
+          <rect x="402" y="264" width="62" height="96" rx="18" fill="#363334"/>
+          <rect x="280" y="292" width="26" height="40" fill="#fff"/>
+          <rect x="442" y="292" width="26" height="40" fill="#fff"/>
+        </g>
+        <!-- muzzle -->
+        <rect x="72" y="500" width="556" height="300" rx="46" fill="#fff" stroke="#363334" stroke-width="16"/>
+        <rect x="258" y="430" width="184" height="140" rx="40" fill="#363334"/>
+        <path d="M190,600 V650 Q190,668 208,668 H332 Q350,668 350,650 V565 M510,600 V650 Q510,668 492,668 H368 Q350,668 350,650"
+              fill="none" stroke="#363334" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="topbar">
     <div class="wrap">
-      <a class="logo" href="#">Code<span>Tigers</span> 🐯</a>
-      <a class="nav-link" href="https://codetigers.com">Visit codetigers.com</a>
+      <a class="brand" href="#"><svg viewBox="0 0 700 830"><use href="#tiger"/></svg>CodeTigers</a>
+      <nav>
+        <a href="#teach">What we teach</a>
+        <a href="#why">Why code</a>
+        <a href="#programmes">Programmes</a>
+        <a href="#reach">Contact</a>
+      </nav>
     </div>
-  </nav>
+  </div>
 
   <header class="hero">
-    <div class="wrap">
-      <div>
-        <span class="badge">For curious kids in classes K–12</span>
-        <h1>Learn to <span class="hl">build</span> the future, one roar at a time</h1>
-        <p>CodeTigers helps kids learn coding, artificial intelligence and physical computing by making real things: games, smart helpers and gadgets you can actually touch.</p>
-        <a class="btn" href="#what">See what we teach</a>
-      </div>
-      <div>
-        <div class="tiger-stage">
-          <div class="tiger" id="tiger" role="button" aria-label="Click the tiger to make it roar" tabindex="0">
-            <div class="ear l"></div><div class="ear r"></div>
-            <div class="face">
-              <div class="stripe s1"></div><div class="stripe s2"></div><div class="stripe s3"></div>
-              <div class="stripe s4"></div><div class="stripe s5"></div>
-              <div class="eye l"></div><div class="eye r"></div>
-              <div class="muzzle"><div class="nose"></div><div class="mouth"></div></div>
-            </div>
-            <div class="roar-bubble">ROAR!</div>
-          </div>
+    <div class="hero-left">
+      <div class="inner">
+        <h1>CodeTigers</h1>
+        <p class="tagline">Making India Code &amp;&nbsp;AI&nbsp;Literate</p>
+        <p class="intro">An initiative to teach coding, artificial intelligence and physical computing to young Indian learners, from grade 1 to grade 12. Courses that are fun, futuristic and affordable.</p>
+        <div class="btns">
+          <a class="btn btn-dark" href="#teach">What we teach</a>
+          <a class="btn btn-light" href="https://codetigers.com">codetigers.com</a>
         </div>
-        <p class="tap-hint">👆 Click the tiger! (This page is made with HTML, CSS and JavaScript.)</p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <button class="tiger-btn" id="tiger" aria-label="Click the CodeTigers tiger to make it roar">
+        <svg viewBox="0 0 700 830"><use href="#tiger"/></svg>
+        <span class="bubble">ROAR!</span>
+      </button>
+      <p class="hint">Click the tiger! This page is built with HTML, CSS &amp; JavaScript.</p>
+      <div class="partners">
+        <span class="partner">Code.org International Partner</span>
+        <span class="partner">Raspberry Pi Foundation Partner</span>
       </div>
     </div>
   </header>
 
-  <section id="what">
+  <section id="teach">
     <div class="wrap">
-      <h2 class="section-title">What we teach</h2>
-      <p class="section-sub">Three big superpowers. Each one is learned by building, not just reading.</p>
+      <span class="eyebrow">Create. Innovate.</span>
+      <h2 class="title">What we teach</h2>
+      <p class="lead">Three big skills for the 21st century. Kids learn each one by building real projects, not just reading about them.</p>
       <div class="cards">
-        <div class="card c-code">
-          <div class="icon">💻</div>
+        <div class="card">
+          <div class="num">01</div>
           <h3>Coding</h3>
-          <p>Coding is like writing a recipe for a computer: clear steps it follows exactly.</p>
-          <ul>
-            <li>Python basics</li>
-            <li>Websites with HTML &amp; CSS</li>
-            <li>Making simple games</li>
-          </ul>
+          <p>Coding is like writing a recipe for a computer. You give it clear steps, and it follows them exactly.</p>
+          <div class="tags"><span class="tag">Scratch</span><span class="tag">Python</span><span class="tag">HTML &amp; CSS</span><span class="tag">App Lab</span><span class="tag">Game Lab</span></div>
         </div>
-        <div class="card c-ai">
-          <div class="icon">🤖</div>
-          <h3>AI</h3>
-          <p>AI is like teaching a computer by showing it lots of examples, the way you learn to spot a cat.</p>
-          <ul>
-            <li>How AI learns</li>
-            <li>Using AI tools wisely</li>
-            <li>Building small AI projects</li>
-          </ul>
+        <div class="card">
+          <div class="num">02</div>
+          <h3>AI &amp; Machine Learning</h3>
+          <p>AI is like teaching a computer by showing it lots of examples, the same way you learned to recognise a cat.</p>
+          <div class="tags"><span class="tag">How AI learns</span><span class="tag">Machine Learning</span><span class="tag">AI projects</span></div>
         </div>
-        <div class="card c-phys">
-          <div class="icon">🔌</div>
+        <div class="card">
+          <div class="num">03</div>
           <h3>Physical Computing</h3>
-          <p>This is code that leaves the screen and moves things in the real world: lights, sounds and motors.</p>
-          <ul>
-            <li>Sensors and LEDs</li>
-            <li>Microcontrollers</li>
-            <li>Gadgets and mini robots</li>
-          </ul>
+          <p>Code that jumps off the screen and into the real world, making lights blink, music play and robots move.</p>
+          <div class="tags"><span class="tag">Raspberry Pi</span><span class="tag">micro:bit</span><span class="tag">Sense HAT</span><span class="tag">Makey Makey</span><span class="tag">Sonic Pi</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section>
-    <div class="wrap how" style="padding:48px 28px;">
-      <h2 class="section-title">How a CodeTiger learns</h2>
-      <p class="section-sub">Every project follows the same four simple steps.</p>
-      <div class="steps">
-        <div class="step"><div class="num">1</div><h3>Imagine</h3><p>Think of something fun to make.</p></div>
-        <div class="step"><div class="num">2</div><h3>Build</h3><p>Write code and put the parts together.</p></div>
-        <div class="step"><div class="num">3</div><h3>Test</h3><p>Try it out. Bugs are just clues!</p></div>
-        <div class="step"><div class="num">4</div><h3>Share</h3><p>Show your project to the world.</p></div>
+  <section class="why" id="why">
+    <div class="split">
+      <div class="left">
+        <div class="inner">
+          <h2 class="title">Why coding for kids?</h2>
+          <p class="lead" style="margin-bottom:24px">Kids love code because it lets them create anything they can imagine. Along the way, it builds skills for life:</p>
+          <ul class="skills">
+            <li>Problem Solving</li>
+            <li>Creativity</li>
+            <li>Reasoning</li>
+            <li>Teamwork &amp; Collaboration</li>
+            <li>Computational Thinking</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <p class="quote">Coding is a foundational skill for the 21st century, <strong>just like reading and writing.</strong> Every child should get an opportunity to learn&nbsp;code.</p>
       </div>
     </div>
   </section>
 
-  <section class="cta">
+  <section id="programmes">
     <div class="wrap">
-      <h2>Ready to join the pack? 🐾</h2>
-      <p>Find out more about classes and projects on our main website.</p>
-      <a class="btn" href="https://codetigers.com">Go to codetigers.com</a>
+      <h2 class="title">Our programmes</h2>
+      <p class="lead">Ways for young coders to learn, compete and show off what they've built.</p>
+      <div class="progs">
+        <div class="prog">
+          <h3>Starting From Scratch</h3>
+          <p>A 10-week Scratch programme that is completely free of cost.</p>
+        </div>
+        <div class="prog">
+          <h3>The Great Indian Coding Competition</h3>
+          <p>One of India's first coding competitions for young kids.</p>
+        </div>
+        <div class="prog">
+          <h3>The CodeTigers Live Show</h3>
+          <p>A live coding show for kids, in Indian languages starting with Hindi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reach" id="reach">
+    <div class="wrap">
+      <h2 class="title">Reach out</h2>
+      <p>For parents and schools: we'd love to help your child, or your whole school, start their coding journey.</p>
+      <div class="btns">
+        <a class="btn btn-yellow" href="mailto:hello@codetigers.com">hello@codetigers.com</a>
+        <a class="btn btn-outline" href="https://codetigers.com">Visit codetigers.com</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <div class="stripes" style="margin-bottom:22px;border-radius:8px;"></div>
-    <div class="wrap">© CodeTigers · Made with code by <a href="https://github.com/HelloCodeTigers">HelloCodeTigers</a> on GitHub</div>
+    <div class="wrap">
+      <span>© Seedling EServices Pvt Ltd · All Rights Reserved</span>
+      <span class="social">
+        <a href="https://youtube.com/codetigers">YouTube</a>
+        <a href="https://fb.com/codetigers">Facebook</a>
+        <a href="https://twitter.com/codetigers">Twitter</a>
+      </span>
+    </div>
   </footer>
 
   <script>
-    // When the tiger is clicked, add the "roar" class for a moment.
+    // Click (or press Enter on) the tiger to make it roar.
     const tiger = document.getElementById("tiger");
-    function roar() {
+    tiger.addEventListener("click", () => {
       tiger.classList.remove("roar");
-      void tiger.offsetWidth; // restart the animation
+      void tiger.offsetWidth;          // restart the animation
       tiger.classList.add("roar");
       setTimeout(() => tiger.classList.remove("roar"), 900);
-    }
-    tiger.addEventListener("click", roar);
-    tiger.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") roar(); });
+    });
   </script>
 </body>
 </html>
