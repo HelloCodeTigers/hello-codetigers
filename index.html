@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeTigers – Code, AI & Physical Computing for Kids</title>
+  <meta name="description" content="CodeTigers teaches coding, AI and physical computing to K12 students.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #FF7A1A;
+      --orange-dark: #E25E00;
+      --stripe: #1F1A17;
+      --cream: #FFF7EC;
+      --ink: #2B2420;
+      --muted: #6B5E55;
+      --blue: #2D7FF9;
+      --green: #1DB37A;
+      --purple: #8B5CF6;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Nunito", system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    h1, h2, h3 { font-family: "Baloo 2", system-ui, sans-serif; line-height: 1.15; }
+    a { color: inherit; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+    /* Tiger stripes bar */
+    .stripes {
+      height: 14px;
+      background: repeating-linear-gradient(115deg, var(--orange) 0 28px, var(--stripe) 28px 40px);
+    }
+
+    /* Nav */
+    nav { padding: 18px 0; }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .logo { font-family: "Baloo 2"; font-weight: 800; font-size: 1.6rem; text-decoration: none; }
+    .logo span { color: var(--orange); }
+    .nav-link {
+      text-decoration: none; font-weight: 700; color: var(--orange-dark);
+      border: 2px solid var(--orange); border-radius: 999px; padding: 6px 16px;
+    }
+    .nav-link:hover { background: var(--orange); color: #fff; }
+
+    /* Hero */
+    .hero { padding: 40px 0 64px; }
+    .hero .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .badge {
+      display: inline-block; background: #FFE3CC; color: var(--orange-dark);
+      font-weight: 700; padding: 4px 14px; border-radius: 999px; font-size: .9rem; margin-bottom: 16px;
+    }
+    .hero h1 { font-size: clamp(2.3rem, 6vw, 3.6rem); margin-bottom: 16px; }
+    .hero h1 .hl { color: var(--orange); }
+    .hero p { font-size: 1.15rem; color: var(--muted); margin-bottom: 28px; max-width: 32em; }
+    .btn {
+      display: inline-block; background: var(--orange); color: #fff; text-decoration: none;
+      font-weight: 700; padding: 14px 28px; border-radius: 14px; font-size: 1.05rem;
+      box-shadow: 0 5px 0 var(--orange-dark); transition: transform .1s, box-shadow .1s;
+    }
+    .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--orange-dark); }
+
+    /* Tiger mascot (made of CSS shapes) */
+    .tiger-stage { display: flex; justify-content: center; }
+    .tiger {
+      width: 260px; height: 240px; position: relative; cursor: pointer;
+      transition: transform .2s;
+    }
+    .tiger:hover { transform: rotate(-4deg) scale(1.03); }
+    .tiger.roar { animation: shake .5s; }
+    @keyframes shake {
+      0%,100% { transform: rotate(0); } 20% { transform: rotate(-8deg); }
+      40% { transform: rotate(8deg); } 60% { transform: rotate(-6deg); } 80% { transform: rotate(6deg); }
+    }
+    .ear { position: absolute; top: 0; width: 70px; height: 70px; background: var(--orange); border-radius: 50%; }
+    .ear::after { content: ""; position: absolute; inset: 16px; background: #FFD7B5; border-radius: 50%; }
+    .ear.l { left: 20px; } .ear.r { right: 20px; }
+    .face {
+      position: absolute; top: 26px; left: 10px; width: 240px; height: 210px;
+      background: var(--orange); border-radius: 50% 50% 46% 46%; overflow: hidden;
+    }
+    .stripe { position: absolute; background: var(--stripe); border-radius: 0 0 40px 40px; }
+    .s1 { left: 104px; top: 0; width: 32px; height: 46px; }
+    .s2 { left: 0; top: 70px; width: 46px; height: 16px; border-radius: 0 20px 20px 0; }
+    .s3 { left: 0; top: 100px; width: 36px; height: 14px; border-radius: 0 20px 20px 0; }
+    .s4 { right: 0; top: 70px; width: 46px; height: 16px; border-radius: 20px 0 0 20px; }
+    .s5 { right: 0; top: 100px; width: 36px; height: 14px; border-radius: 20px 0 0 20px; }
+    .eye { position: absolute; top: 72px; width: 34px; height: 40px; background: #fff; border-radius: 50%; }
+    .eye::after {
+      content: ""; position: absolute; width: 16px; height: 22px; background: var(--stripe);
+      border-radius: 50%; top: 10px; left: 9px;
+    }
+    .eye.l { left: 62px; } .eye.r { right: 62px; }
+    .muzzle {
+      position: absolute; bottom: 14px; left: 50px; width: 140px; height: 86px;
+      background: #FFF1E3; border-radius: 50%;
+    }
+    .nose {
+      position: absolute; top: 12px; left: 52px; width: 36px; height: 24px;
+      background: var(--stripe); border-radius: 50% 50% 60% 60%;
+    }
+    .mouth {
+      position: absolute; top: 40px; left: 46px; width: 48px; height: 18px;
+      border-bottom: 5px solid var(--stripe); border-radius: 0 0 50% 50%;
+      transition: all .2s;
+    }
+    .tiger.roar .mouth {
+      height: 32px; top: 40px; background: #C2263B; border: none; border-radius: 10px 10px 50% 50%;
+    }
+    .roar-bubble {
+      position: absolute; top: -10px; right: -40px; background: #fff; border: 3px solid var(--stripe);
+      border-radius: 18px; padding: 6px 14px; font-family: "Baloo 2"; font-weight: 800; font-size: 1.3rem;
+      opacity: 0; transform: scale(.6); transition: all .2s; pointer-events: none;
+    }
+    .tiger.roar .roar-bubble { opacity: 1; transform: scale(1); }
+    .tap-hint { text-align: center; color: var(--muted); font-size: .9rem; margin-top: 10px; }
+
+    /* Sections */
+    section { padding: 64px 0; }
+    .section-title { text-align: center; margin-bottom: 12px; font-size: clamp(1.8rem, 4vw, 2.4rem); }
+    .section-sub { text-align: center; color: var(--muted); max-width: 36em; margin: 0 auto 40px; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .card {
+      background: var(--card); border-radius: 22px; padding: 28px 24px;
+      border: 3px solid var(--stripe); box-shadow: 6px 6px 0 var(--stripe);
+    }
+    .card .icon {
+      width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center;
+      font-size: 2rem; margin-bottom: 16px;
+    }
+    .card h3 { font-size: 1.5rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); margin-bottom: 14px; }
+    .card ul { list-style: none; }
+    .card li { padding-left: 26px; position: relative; margin-bottom: 6px; font-weight: 600; }
+    .card li::before { content: "🐾"; position: absolute; left: 0; font-size: .9rem; top: 2px; }
+    .c-code .icon { background: #E3EEFF; }
+    .c-ai .icon { background: #EFE7FF; }
+    .c-phys .icon { background: #DDF6EC; }
+
+    /* How we learn */
+    .how { background: var(--stripe); color: #fff; border-radius: 32px; }
+    .how .section-sub { color: #CFC5BD; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; counter-reset: step; }
+    .step {
+      background: #2E2722; border-radius: 18px; padding: 22px 18px; text-align: center;
+    }
+    .step .num {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--orange); color: #fff;
+      display: grid; place-items: center; font-family: "Baloo 2"; font-weight: 800;
+      font-size: 1.3rem; margin: 0 auto 12px;
+    }
+    .step h3 { font-size: 1.25rem; margin-bottom: 4px; }
+    .step p { color: #CFC5BD; font-size: .95rem; }
+
+    /* CTA */
+    .cta { text-align: center; }
+    .cta h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 12px; }
+    .cta p { color: var(--muted); margin-bottom: 26px; }
+
+    footer { padding: 28px 0 36px; text-align: center; color: var(--muted); font-size: .95rem; }
+
+    /* Phones */
+    @media (max-width: 820px) {
+      .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .cards { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .roar-bubble { right: -10px; }
+    }
+    @media (max-width: 420px) {
+      .steps { grid-template-columns: 1fr; }
+      .tiger { transform: scale(.85); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stripes"></div>
+
+  <nav>
+    <div class="wrap">
+      <a class="logo" href="#">Code<span>Tigers</span> 🐯</a>
+      <a class="nav-link" href="https://codetigers.com">Visit codetigers.com</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <span class="badge">For curious kids in classes K–12</span>
+        <h1>Learn to <span class="hl">build</span> the future, one roar at a time</h1>
+        <p>CodeTigers helps kids learn coding, artificial intelligence and physical computing by making real things: games, smart helpers and gadgets you can actually touch.</p>
+        <a class="btn" href="#what">See what we teach</a>
+      </div>
+      <div>
+        <div class="tiger-stage">
+          <div class="tiger" id="tiger" role="button" aria-label="Click the tiger to make it roar" tabindex="0">
+            <div class="ear l"></div><div class="ear r"></div>
+            <div class="face">
+              <div class="stripe s1"></div><div class="stripe s2"></div><div class="stripe s3"></div>
+              <div class="stripe s4"></div><div class="stripe s5"></div>
+              <div class="eye l"></div><div class="eye r"></div>
+              <div class="muzzle"><div class="nose"></div><div class="mouth"></div></div>
+            </div>
+            <div class="roar-bubble">ROAR!</div>
+          </div>
+        </div>
+        <p class="tap-hint">👆 Click the tiger! (This page is made with HTML, CSS and JavaScript.)</p>
+      </div>
+    </div>
+  </header>
+
+  <section id="what">
+    <div class="wrap">
+      <h2 class="section-title">What we teach</h2>
+      <p class="section-sub">Three big superpowers. Each one is learned by building, not just reading.</p>
+      <div class="cards">
+        <div class="card c-code">
+          <div class="icon">💻</div>
+          <h3>Coding</h3>
+          <p>Coding is like writing a recipe for a computer: clear steps it follows exactly.</p>
+          <ul>
+            <li>Python basics</li>
+            <li>Websites with HTML &amp; CSS</li>
+            <li>Making simple games</li>
+          </ul>
+        </div>
+        <div class="card c-ai">
+          <div class="icon">🤖</div>
+          <h3>AI</h3>
+          <p>AI is like teaching a computer by showing it lots of examples, the way you learn to spot a cat.</p>
+          <ul>
+            <li>How AI learns</li>
+            <li>Using AI tools wisely</li>
+            <li>Building small AI projects</li>
+          </ul>
+        </div>
+        <div class="card c-phys">
+          <div class="icon">🔌</div>
+          <h3>Physical Computing</h3>
+          <p>This is code that leaves the screen and moves things in the real world: lights, sounds and motors.</p>
+          <ul>
+            <li>Sensors and LEDs</li>
+            <li>Microcontrollers</li>
+            <li>Gadgets and mini robots</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap how" style="padding:48px 28px;">
+      <h2 class="section-title">How a CodeTiger learns</h2>
+      <p class="section-sub">Every project follows the same four simple steps.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h3>Imagine</h3><p>Think of something fun to make.</p></div>
+        <div class="step"><div class="num">2</div><h3>Build</h3><p>Write code and put the parts together.</p></div>
+        <div class="step"><div class="num">3</div><h3>Test</h3><p>Try it out. Bugs are just clues!</p></div>
+        <div class="step"><div class="num">4</div><h3>Share</h3><p>Show your project to the world.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Ready to join the pack? 🐾</h2>
+      <p>Find out more about classes and projects on our main website.</p>
+      <a class="btn" href="https://codetigers.com">Go to codetigers.com</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="stripes" style="margin-bottom:22px;border-radius:8px;"></div>
+    <div class="wrap">© CodeTigers · Made with code by <a href="https://github.com/HelloCodeTigers">HelloCodeTigers</a> on GitHub</div>
+  </footer>
+
+  <script>
+    // When the tiger is clicked, add the "roar" class for a moment.
+    const tiger = document.getElementById("tiger");
+    function roar() {
+      tiger.classList.remove("roar");
+      void tiger.offsetWidth; // restart the animation
+      tiger.classList.add("roar");
+      setTimeout(() => tiger.classList.remove("roar"), 900);
+    }
+    tiger.addEventListener("click", roar);
+    tiger.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") roar(); });
+  </script>
+</body>
+</html>
